@@ -1,0 +1,91 @@
+/*
+  elm-hot creates an additional div wrapper around the app to make HMR possible.
+  This could break styling in development mode if you are using Elm UI.
+
+  More context in the issue:
+    https://github.com/halfzebra/create-elm-app/issues/320
+*/
+[data-elm-hot="true"] {
+    height: inherit;
+}
+
+body {
+    font-family: 'Source Sans Pro', 'Trebuchet MS', 'Lucida Grande', 'Bitstream Vera Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    text-align: center;
+    color: #293c4b;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+img {
+    margin: 20px 0;
+    max-width: 200px;
+}
+
+.game {
+    display: grid;
+    grid-gap: 0;
+    grid-template-columns: repeat(13, 30px);
+    grid-template-rows: repeat(13, 30px);
+}
+
+.game>div {
+    height: auto;
+    width: auto;
+}
+
+.game>div {
+    border: 1px grey solid;
+    display: flex;
+}
+
+.game>div>div {
+    display: flex;
+}
+
+.game>div * {
+    margin: auto;
+}
+
+.game div:hover {
+    background-color: lightgrey;
+}
+
+.player-1-cell {
+    color: #0000ff;
+    font-size: 25px;
+}
+
+.player-1-armor {
+    font-size: 25px;
+    line-height: 20.5px;
+    color: #6565ff;
+}
+
+.player-2-cell {
+    color: #00ff00;
+    font-size: 25px;
+}
+
+
+.player-2-armor {
+    font-size: 25px;
+    line-height: 20.5px;
+    color: #77ff95;
+}
+
+
+.available {
+    background-color: #ededed;
+}
+
+.connected .player-1-armor {
+    color: #0000ff !important;
+}
+
+.connected .player-2-armor {
+    color: #00ff00 !important;
+}
