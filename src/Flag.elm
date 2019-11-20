@@ -22,8 +22,4 @@ decodeFlag val =
             Just flag
 
         Err errorMessage ->
-            let
-                _ =
-                    Debug.log "error" errorMessage
-            in
             Nothing

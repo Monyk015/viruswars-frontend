@@ -1,5 +1,6 @@
 module Api exposing (..)
 
+import Env exposing (url)
 import Http
 import Json.Decode exposing (Decoder, field, string)
 import Json.Encode as E
@@ -9,11 +10,6 @@ import Player exposing (..)
 type Msg
     = CreatedRoom (Result Http.Error String)
     | JoinedRoom (Result Http.Error Player)
-
-
-url =
-    -- "http://localhost:4000/api/"
-    "http://192.168.0.149:4000/api/"
 
 
 createRoom =

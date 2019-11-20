@@ -56,30 +56,14 @@ decodePlayer val =
             Just player
 
         Err errorMessage ->
-            let
-                _ =
-                    Debug.log "error" errorMessage
-            in
             Nothing
 
 
 mapIncomingPlayer : (Player -> msg) -> msg -> D.Value -> msg
 mapIncomingPlayer msgSuccess msgErr json =
-    let
-        _ =
-            Debug.log "kek" json
-    in
     case D.decodeValue playerDecoder json of
         Ok player ->
-            let
-                _ =
-                    Debug.log "kek2" player
-            in
             msgSuccess player
 
         Err errorMessage ->
-            let
-                _ =
-                    Debug.log "Error in mapIncomingPlayer:" errorMessage
-            in
             msgErr

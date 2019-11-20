@@ -1,9 +1,6 @@
 module Game exposing (..)
 
 import Dict exposing (Dict)
-import Html exposing (..)
-import Html.Attributes exposing (..)
-import Html.Events exposing (..)
 import Json.Decode as D exposing (..)
 import Json.Encode as E
 import List
@@ -28,58 +25,6 @@ type alias Game =
     }
 
 
-viewGame : Game -> (Coord -> msg) -> Html msg
-viewGame game moveMsg =
-    div [ class "game" ] (viewCells game.board moveMsg)
-
-
-viewCells : Dict Coord Cell -> (Coord -> msg) -> List (Html msg)
-viewCells board moveMsg =
-    Dict.values (Dict.map (\coord cell -> viewCell coord cell moveMsg) board)
-
-
-viewCell : Coord -> Cell -> (Coord -> msg) -> Html msg
-viewCell ( i, j ) cell moveMsg =
-    let
-        ( additionalClass, innerCell ) =
-            case cell of
-                Empty available ->
-                    ( viewAvailable available, Html.i [] [] )
-
-                Living Player1 available ->
-                    ( viewAvailable available, Html.i [ class "fas fa-times player-1-cell" ] [] )
-
-                Living Player2 available ->
-                    ( viewAvailable available, Html.i [ class "fas fa-times player-2-cell" ] [] )
-
-                Armor Player1 connected ->
-                    ( viewConnected connected, Html.i [ class "fas fa-square player-1-armor" ] [] )
-
-                Armor Player2 connected ->
-                    ( viewConnected connected, Html.i [ class "fas fa-square player-2-armor" ] [] )
-    in
-    div [ style "grid-row" (String.fromInt <| i + 1), style "grid-column" (String.fromInt <| j + 1), onClick (moveMsg ( i, j )), class additionalClass ]
-        [ innerCell ]
-
-
-viewAvailable : Bool -> String
-viewAvailable bool =
-    if bool then
-        "available"
-
-    else
-        ""
-
-
-viewConnected : Bool -> String
-viewConnected bool =
-    if bool then
-        "connected"
-
-    else
-        ""
-
-
 mapIncomingGame : (Game -> msg) -> msg -> (E.Value -> msg)
 mapIncomingGame successMsg errMsg game =
     case decodeValue gameDecoder game of
@@ -87,10 +32,6 @@ mapIncomingGame successMsg errMsg game =
             successMsg res
 
         _ ->
-            let
-                _ =
-                    Debug.log "kek" "shit"
-            in
             errMsg
 
 
